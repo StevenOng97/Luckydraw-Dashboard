@@ -1,14 +1,17 @@
-import React, { FC, useState, useMemo } from 'react';
+import React, { FC, useState, useMemo } from "react";
 
-import classNames from 'classnames';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { menuItems } from './menuItems';
-import { Theme, useTheme } from '../../theme/ThemeContext';
+import classNames from "classnames";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { menuItems } from "./menuItems";
+import { Theme, useTheme } from "../../theme/ThemeContext";
+import { useAuth } from "../../hooks/useAuth";
+
 const Sidebar: FC = () => {
   const [toggleCollapse, setToggleCollapse] = useState(false);
   const { setTheme } = useTheme();
   const router = useRouter();
+  const { logout } = useAuth();
 
   const activeMenu = useMemo(
     () => menuItems.find((menu) => menu.link === router.pathname),
@@ -17,11 +20,11 @@ const Sidebar: FC = () => {
 
   const getNavItemClasses = (menu) => {
     return classNames(
-      'flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4',
+      "flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 duration-300",
       {
-        ['mt-9']: menu.gap,
-        ['mt-2']: !menu.gap,
-        ['bg-light-white']: activeMenu.id === menu.id,
+        ["mt-9"]: menu.gap,
+        ["mt-2"]: !menu.gap,
+        ["bg-light-white"]: activeMenu.id === menu.id,
       }
     );
   };
@@ -37,34 +40,36 @@ const Sidebar: FC = () => {
   };
 
   const wrapperClasses = classNames(
-    'sidebar bg-dark-purple h-screen p-5  pt-8 fixed duration-300',
+    "sidebar flex flex-col bg-dark-purple h-screen p-5 pt-8 fixed duration-300",
     {
-      ['w-72']: !toggleCollapse,
-      ['w-20']: toggleCollapse,
+      ["w-72"]: !toggleCollapse,
+      ["w-20"]: toggleCollapse,
     }
   );
 
   const collapseIconClasses = classNames(
-    'absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple border-2 rounded-full',
+    "absolute cursor-pointer -right-3 top-9 w-7 bg-dark-purple border-2 rounded-full",
     {
-      'rotate-180': !toggleCollapse,
+      "rotate-180": !toggleCollapse,
     }
   );
 
-  const logoWrapperClasses = classNames('cursor-pointer duration-500', {
-    'rotate-[360deg]': toggleCollapse,
+  const logoWrapperClasses = classNames("cursor-pointer duration-500", {
+    "rotate-[360deg]": toggleCollapse,
   });
 
   const titleWrapperClasses = classNames(
-    'text-white origin-left font-medium text-xl duration-200',
+    "text-white origin-left font-medium text-xl duration-200",
     {
-      'scale-0': toggleCollapse,
+      "scale-0": toggleCollapse,
     }
   );
 
-  const subMenuWrapperClasses = classNames('origin-left duration-200', {
+  const subMenuWrapperClasses = classNames("origin-left duration-200", {
     hidden: toggleCollapse,
   });
+
+  const handleLogout = () => logout();
 
   return (
     <div className={wrapperClasses}>
@@ -82,15 +87,12 @@ const Sidebar: FC = () => {
           src="/assets/logo.png"
           className={logoWrapperClasses}
         />
-        <h1 className={titleWrapperClasses}>Designer</h1>
+        <h1 className={titleWrapperClasses}>Luckydraw</h1>
       </div>
       <ul className="pt-6">
         {menuItems.map((menu, index) => {
           return (
-            <Link
-              href={menu.link}
-              key={index}
-            >
+            <Link href={menu.link} key={index}>
               <div className={getNavItemClasses(menu)}>
                 <img src={`/assets/${menu.icon}.png`} />
                 <span className={subMenuWrapperClasses}>{menu.label}</span>
@@ -99,6 +101,23 @@ const Sidebar: FC = () => {
           );
         })}
       </ul>
+      <div onClick={handleLogout} className={`${getNavItemClasses({})} mt-auto`}>
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          ></path>
+        </svg>
+        <span className={subMenuWrapperClasses}>Log Out</span>
+      </div>
     </div>
   );
 };

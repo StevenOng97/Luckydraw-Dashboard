@@ -15,6 +15,7 @@
     "classnames": "^2.3.2",
     "dotenv": "^16.0.2",
     "flowbite": "^1.5.3",
+    "framer-motion": "^6.2.4",
     "graphql": "^15.8.0",
     "graphql-tools": "^8.3.6",
     "moment": "^2.29.4",

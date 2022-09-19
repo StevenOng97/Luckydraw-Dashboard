@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { FC } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import Loading from './Loading';
 

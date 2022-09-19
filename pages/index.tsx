@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react';
-import Layout from '../components/Layout';
 import { useAuth } from '../hooks/useAuth';
 import { useRouter } from 'next/router';
 

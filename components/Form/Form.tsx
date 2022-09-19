@@ -14,13 +14,13 @@ const Form: FC<FormComponentProps> = ({
 }) => {
   return (
     <form
-      className={`form__container form-group mt-5 ${className}`}
+      className={`form__container form-group ${className}`}
       onSubmit={submit}
     >
       {children}
       <div className="w-100 text-center">
         <button
-          className="px-5 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all"
+          className="w-full px-5 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all"
           disabled={loading}
         >
           {loading && (

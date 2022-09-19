@@ -13,7 +13,7 @@ const SignInForm: FC<AuthFormProps> = ({
 }) => {
   const renderInformationForm = () => {
     return (
-      <Form className="basis-1/3" submit={onSubmit} loading={isLoading}>
+      <Form submit={onSubmit} loading={isLoading}>
         {signInForm.map((field, i) => {
           const { placeholder, type, rules, name, id } = field;
           return (
