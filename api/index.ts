@@ -5,7 +5,7 @@ import axios from 'axios';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 interface AuthResponse {
   user: User;
-  jwt: string;
+  token: string;
 }
 
 export interface User {
@@ -23,11 +23,12 @@ export async function handleApiResponse(response) {
 }
 
 export async function getUserProfile() {
-  return await fetch(`${Constants.API_URL}/auth/me`, {
-    headers: {
-      Authorization: storage.getToken(),
-    },
-  }).then(handleApiResponse);
+  return;
+  // return await fetch(`${Constants.API_URL}/auth/me`, {
+  //   headers: {
+  //     Authorization: storage.getToken(),
+  //   },
+  // }).then(handleApiResponse);
 }
 
 export async function loginWithEmailAndPassword(data): Promise<AuthResponse> {

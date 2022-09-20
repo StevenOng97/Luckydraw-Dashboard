@@ -6,6 +6,7 @@ export const AuthCheck = ({ children }) => {
   const router = useRouter();
   const { user } = useAuth();
 
+  // console.log(user);
   if (typeof window !== 'undefined' && user === null) router.push('/signin');
 
   if (!user)

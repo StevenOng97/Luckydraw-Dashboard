@@ -1,43 +1,49 @@
-import classnames from "classnames";
-import React, { FC, useState, useEffect } from "react";
-import { Theme, useTheme } from "../../theme/ThemeContext";
+import classnames from 'classnames';
+import React, { FC, useState, useEffect } from 'react';
+import { Theme, useTheme } from '../../theme/ThemeContext';
 
 interface IToastProps {
-  text?: string;
-  time?: number;
+  message?: string;
+  timer?: number;
   isAutoClosed?: boolean;
   isOpen?: boolean;
+  type?: string;
+  hide?: () => void;
 }
 
 const Toast: FC<IToastProps> = ({
-  text = "Error",
-  time = 3000,
+  message,
+  timer = 3000,
   isAutoClosed = true,
   isOpen,
+  hide,
+  type,
 }) => {
-  const [open, setOpen] = useState(isOpen);
-
   const { theme } = useTheme();
 
   useEffect(() => {
-    if (isAutoClosed) {
+    if (isAutoClosed && isOpen) {
       setTimeout(() => {
-        setOpen(false);
-      }, time);
+        hide();
+      }, timer);
     }
-  }, []);
+  }, [isOpen]);
 
   const toastWrapperClassname = classnames(
-    "flex justify-center fixed bottom-5 left-1/2 items-center p-4  w-full max-w-xs text-gray-500 bg-red-500 rounded-lg shadow duration-300",
+    'flex justify-center fixed bottom-5 left-1/2 items-center p-4  w-full max-w-xs rounded-lg shadow duration-300',
     {
-      ["-translate-x-1/2"]: theme === Theme.NotToggled,
-      ["opacity-0"]: !open,
+      ['-translate-x-1/2']: theme === Theme.NotToggled,
+      ['opacity-0']: !isOpen,
+      ['bg-red-500']: type === 'error',
+      ['bg-yellow-300']: type === 'warn',
+      ['bg-sky-500']: type === 'info',
+      ['bg-green-500']: type === 'success',
     }
   );
 
   return (
     <div id="toast-danger" className={toastWrapperClassname} role="alert">
-      <div className="text-white text-sm font-bold">{text}</div>
+      <span className="text-white">{message}</span>
     </div>
   );
 };

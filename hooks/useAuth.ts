@@ -8,18 +8,18 @@ import {
 import { storage } from '../helpers/helper';
 
 export async function handleUserResponse(data) {
-  const { jwt, user } = data;
-  storage.setToken(jwt);
-  return user;
+  const { token, user } = data;
+  storage.setToken(token);
+  return token;
 }
 
 async function loadUser() {
-  let user = null;
-  if (storage.getToken()) {
-    const data = await getUserProfile();
-    user = data;
-  }
-  return user;
+  // let user = null;
+  // if (storage.getToken()) {
+  //   const data = await getUserProfile();
+  //   user = data;
+  // }
+  return storage.getToken();
 }
 
 async function loginFn(data) {

@@ -5,7 +5,21 @@ interface IPattern {
   message: string;
 }
 
+interface IMin {
+  value: number;
+  message: string;
+}
+
+interface IMax {
+  value: number;
+  message: string;
+}
 interface IMinlength {
+  value: number;
+  message: string;
+}
+
+interface IMaxlength {
   value: number;
   message: string;
 }
@@ -14,6 +28,9 @@ interface IRule {
   required: string;
   pattern?: IPattern;
   minLength?: IMinlength;
+  maxLength?: IMaxlength;
+  min?: IMin;
+  max?: IMax;
 }
 
 interface IFormDataType {
