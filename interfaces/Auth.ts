@@ -31,6 +31,8 @@ interface IRule {
   maxLength?: IMaxlength;
   min?: IMin;
   max?: IMax;
+  valueAsNumber?: boolean;
+  validate?: any;
 }
 
 interface IFormDataType {
@@ -38,7 +40,7 @@ interface IFormDataType {
   name: string;
   placeholder: string;
   type: string;
-  rules: IRule;
+  rules?: IRule;
 }
 
 interface AuthFormProps {

@@ -4,25 +4,26 @@ import { useModal } from '../../context/ModalContext';
 
 interface IGiftCategoryProps {
   category: ItemResponse;
-  index?: number;
-  renderDeleteModal?: (category: ItemResponse) => JSX.Element;
+  number: number;
+  renderUpdateModal?: (category: ItemResponse) => JSX.Element;
 }
 
-const GiftCategory: FC<IGiftCategoryProps> = ({
+const Gift: FC<IGiftCategoryProps> = ({
   category,
-  renderDeleteModal,
+  renderUpdateModal,
+  number,
 }) => {
   const { showModal } = useModal();
 
-  const onDelete = () => {
-    showModal(renderDeleteModal(category));
+  const onUpdate = () => {
+    showModal(renderUpdateModal(category));
   };
 
   return (
     <div className="flex mt-2 justify-between">
       <p className="basis-1/3">{category.name}</p>
-      <p>{category.rate}%</p>
-      <p className="flex">
+      <p>{number}</p>
+      {/* <p className="flex">
         <span className="mr-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +35,7 @@ const GiftCategory: FC<IGiftCategoryProps> = ({
             <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
           </svg>
         </span>
-        <span onClick={onDelete}>
+        <span onClick={onUpdate}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -49,9 +50,9 @@ const GiftCategory: FC<IGiftCategoryProps> = ({
             />
           </svg>
         </span>
-      </p>
+      </p> */}
     </div>
   );
 };
 
-export default GiftCategory;
+export default Gift;

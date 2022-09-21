@@ -22,10 +22,11 @@ const createGiftCategoryForm: IFormDataType[] = [
     type: 'text',
     rules: {
       required: 'Hãy nhập số rate',
-      pattern: ratePattern,
+      valueAsNumber: true,
+      validate: (value) => (Number.isNaN(value) ? ratePattern.message : null),
       min: {
-        value: 1,
-        message: 'Rate thấp nhất là 1%',
+        value: 0,
+        message: 'Rate thấp nhất là 0',
       },
       max: {
         value: 100,
