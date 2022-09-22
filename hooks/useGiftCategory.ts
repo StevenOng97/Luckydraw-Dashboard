@@ -4,6 +4,7 @@ import {
   createGiftCategory,
   deleteGiftCategory,
   getAllGiftCategories,
+  updateGiftCategory,
 } from '../api/GiftCategory';
 import { useLoading } from '../context/LoadingContext';
 import { useModal } from '../context/ModalContext';
@@ -42,6 +43,20 @@ function useGiftCategory() {
     }
   );
 
+  const { mutate: updateCategory, isLoading: updating } = useMutation(
+    updateGiftCategory,
+    {
+      onSuccess(data) {
+        success('Update thành công gift category');
+        queryClient.invalidateQueries('gift-categories');
+      },
+
+      onError: (err) => {
+        error(err);
+      },
+    }
+  );
+
   const { mutate: deleteCategory, isLoading: deleting } = useMutation(
     deleteGiftCategory,
     {
@@ -69,10 +84,15 @@ function useGiftCategory() {
     setLoading(deleting);
   }, [deleting]);
 
+  useEffect(() => {
+    setLoading(updating);
+  }, [updating]);
+
   return {
     categories,
     createCategory,
     deleteCategory,
+    updateCategory
   };
 }
 

@@ -5,10 +5,11 @@ import {
   UseFormRegister,
   Path,
   Controller,
-} from 'react-hook-form';
-import Input, { InputProps } from './Input';
-import { ErrorMessage } from '@hookform/error-message';
-import InputMask from 'react-input-mask';
+} from "react-hook-form";
+import Input, { InputProps } from "./Input";
+import { ErrorMessage } from "@hookform/error-message";
+import InputMask from "react-input-mask";
+import classnames from "classnames";
 
 export type FormInputProps<TFormValues> = {
   name: Path<TFormValues>;
@@ -18,7 +19,8 @@ export type FormInputProps<TFormValues> = {
   label?: Path<TFormValues>;
   control?: any;
   type: any;
-} & Omit<InputProps, 'name'>;
+  renderLabel?: boolean;
+} & Omit<InputProps, "name">;
 
 const FormInput = <TFormValues extends Record<string, unknown>>({
   name,
@@ -29,13 +31,14 @@ const FormInput = <TFormValues extends Record<string, unknown>>({
   control,
   label,
   type,
+  renderLabel = true,
   ...props
 }: FormInputProps<TFormValues>): JSX.Element => {
   const errorMessages = errors[name];
   const hasError = !!(errors && errorMessages);
 
   const renderInput = () => {
-    if (type !== 'phone') {
+    if (type !== "phone") {
       return (
         <Input
           name={name}
@@ -69,9 +72,24 @@ const FormInput = <TFormValues extends Record<string, unknown>>({
     }
   };
 
+  const errorWrapperClassnames = classnames("h-4", {
+    ["opacity-1"]: errors,
+    ["opacity-0"]: !errors,
+  });
+
+  const renderErrorMsg = () => (
+    <ErrorMessage
+      errors={errors}
+      name={name as any}
+      render={({ message }) => (
+        <small className="mb-0 text-red-600">{message}</small>
+      )}
+    />
+  );
+
   return (
-    <div aria-live="polite" className="mb-3">
-      {
+    <div aria-live="polite" className="basis-5/12 mb-3">
+      {renderLabel && (
         <p className="mb-1">
           <label
             htmlFor={name}
@@ -81,15 +99,9 @@ const FormInput = <TFormValues extends Record<string, unknown>>({
           </label>
           {!rules?.required && <span> - Optional</span>}
         </p>
-      }
+      )}
       {renderInput()}
-      <ErrorMessage
-        errors={errors}
-        name={name as any}
-        render={({ message }) => (
-          <small className="mb-0 text-red-600">{message}</small>
-        )}
-      />
+      {renderErrorMsg()}
     </div>
   );
 };

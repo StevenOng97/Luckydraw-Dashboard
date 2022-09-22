@@ -5,8 +5,8 @@ import { storage } from '../helpers/helper';
 export interface CreateGiftCategoryResponse {}
 
 export interface ItemResponse {
-  name: string;
   id: string;
+  name: string;
   rate: number;
 }
 
@@ -42,6 +42,10 @@ const fetcherWithToken: any = (url: string, method: string, data) => {
 
 export async function createGiftCategory(data): Promise<any> {
   return fetcherWithToken(`${Constants.API_URL}/${endpoint}`, 'post', data);
+}
+
+export async function updateGiftCategory(data): Promise<any> {
+  return fetcherWithToken(`${Constants.API_URL}/${endpoint}`, 'patch', data);
 }
 
 export async function deleteGiftCategory(id: string): Promise<any> {

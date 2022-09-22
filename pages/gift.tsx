@@ -14,7 +14,6 @@ const Category = () => {
   const { categories, createCategory, deleteCategory } = useGiftCategory();
   const { gifts, createBatchGifts } = useGift();
 
-  console.log(gifts);
   const {
     register,
     handleSubmit,
@@ -73,8 +72,8 @@ const Category = () => {
       <Layout>
         <div className="flex-1 p-7">
           <h1 className="text-2xl font-semibold text-gray-900">Gift</h1>
-          <div className="flex wrapper items-start">
-            <div className="mt-2 text-black basis-1/2">
+          <div className="flex wrapper items-end flex-wrap">
+            <div className="mt-2 text-black basis-full md:basis-1/2">
               <h2 className="text-l font-semibold">
                 Tổng số lượng quà trong kho
               </h2>
@@ -88,7 +87,7 @@ const Category = () => {
                 errors={errors}
                 control={control}
                 register={register}
-                className="ml-auto basis-1/3 py-8 px-6 shadow rounded-lg sm:px-10 basis-1/3 bg-white"
+                className="py-8 px-6 shadow rounded-lg sm:px-10 bg-white ml-0 basis-full mt-10 md:mt-0 md:ml-auto md:basis-1/3"
               />
             )}
           </div>

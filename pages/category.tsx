@@ -1,12 +1,12 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { AuthCheck } from '../components/AuthCheck';
-import GiftCategory from '../components/GiftCategory/GiftCategory';
-import CreateGiftCategoryForm from '../components/GiftForm/CreateGiftCategoryForm';
-import Layout from '../components/Layout';
-import { useLoading } from '../context/LoadingContext';
-import { useModal } from '../context/ModalContext';
-import useGiftCategory from '../hooks/useGiftCategory';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { AuthCheck } from "../components/AuthCheck";
+import GiftCategory from "../components/GiftCategory/GiftCategory";
+import CreateGiftCategoryForm from "../components/GiftForm/CreateGiftCategoryForm";
+import Layout from "../components/Layout";
+import { useLoading } from "../context/LoadingContext";
+import { useModal } from "../context/ModalContext";
+import useGiftCategory from "../hooks/useGiftCategory";
 
 const Category = () => {
   const { loading } = useLoading();
@@ -19,7 +19,7 @@ const Category = () => {
     control,
     setError,
   } = useForm({
-    mode: 'all',
+    mode: "all",
   });
 
   const onSubmit = handleSubmit(async (data) => {
@@ -97,7 +97,7 @@ const Category = () => {
       <Layout>
         <div className="flex-1 p-7">
           <h1 className="text-2xl font-semibold text-gray-900">Category</h1>
-          <div className="flex wrapper items-start">
+          <div className="flex wrapper items-end">
             <div className="mt-2 text-black basis-1/2">
               <h2 className="text-l font-semibold">List quà tặng đang có:</h2>
               {categories && renderListCategories()}
